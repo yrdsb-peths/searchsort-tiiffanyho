@@ -9,7 +9,12 @@ public class BinarySearch extends Search {
     public int find(int[] arr, int target) {
         int min = 0;
         int max = arr.length - 1;
-
+        if (arr == null || arr.length == 0) {
+            return -1;
+        }
+        if(target == arr[0]){
+            return 0; 
+        }
         while (min <= max) {
             int mid = min + (max - min) / 2;
             if (arr[mid] == target) {
@@ -32,17 +37,19 @@ public class BinarySearch extends Search {
         return recursiveBinary(arr, target, arr.length - 1, 0);
     }
 
-    public int recursiveBinary(int[] arr, int target, int max, int min) {
-        if(max < min) {
-            return -1;
+    public int recursiveBinary(int[] arr, int target, int left, int right) {
+        if (left > right) {
+            return -1; // Target not found
         }
-        int mid = (max + min) / 2;
-        if(arr[mid] == target) {
-            return mid;
+
+        int mid = left + (right - left) / 2;
+
+        if (arr[mid] == target) {
+            return mid; // Target found
+        } else if (arr[mid] < target) {
+            return recursiveBinary(arr, target, mid + 1, right); // Right half
+        } else {
+            return recursiveBinary(arr, target, left, mid - 1); // Left half
         }
-        if(arr[mid] > target) {
-            return recursiveBinary(arr, target, mid - 1, min);
-        }
-        return recursiveBinary(arr, target, max, min + 1);
     }
 }
