@@ -31,11 +31,11 @@ public class BinarySearch extends Search {
      */
     @Override
     public int recursiveFind(int[] arr, int target) {
-        return recursiveBinary(arr, target, arr.length - 1, 0); // Call the helper method to perform recursive binary search.
+        return recursiveBinary(arr, target, arr.length - 1, 0);
     }
 
     public int recursiveBinary(int[] arr, int target, int max, int min) {
-         // Base case
+        // Base case
         if (max < min) {
             return -1; // Target not found
         }
@@ -44,13 +44,10 @@ public class BinarySearch extends Search {
 
         if (arr[mid] == target) {
             return mid; // Target found
-        } 
-        else if (arr[mid] < target) 
-        {// If the target is greater than the middle element, search the right half.
-            return recursiveBinary(arr, target, mid - 1, min); 
-        } 
-        else 
-        {// If the target is smaller than the middle element, search the left half.
-            return recursiveBinary(arr, target, max, mid + 1); 
+        } else if (arr[mid] < target) {
+            return recursiveBinary(arr, target, mid - 1, min); // If target is smaller than middle element, search right half
+        } else {
+            return recursiveBinary(arr, target, max, mid + 1); // If target is smaller than middle element, search left half
+        }
     }
 }
