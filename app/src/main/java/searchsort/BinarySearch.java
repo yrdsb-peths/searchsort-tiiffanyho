@@ -10,6 +10,13 @@ public class BinarySearch extends Search {
         int low = 0;
         int high = arr.length - 1;
 
+        if (arr == null || arr.length == 0) {
+            return -1;
+        }
+        if(target == arr[0]){
+            return 0; 
+        }
+
         while (low <= high) {
             int mid = low + (high - low) / 2;
             if (arr[mid] == target) {
@@ -29,7 +36,7 @@ public class BinarySearch extends Search {
      */
     @Override
     public int recursiveFind(int[] arr, int target) {
-        return recursiveBinary(arr, target, arr.length - 1, 0);
+        return recursiveBinary(arr, target, 0, arr.length - 1);
     }
 
     public int recursiveBinary(int[] arr, int target, int high, int low) {
