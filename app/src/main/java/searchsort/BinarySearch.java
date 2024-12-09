@@ -7,24 +7,17 @@ public class BinarySearch extends Search {
      */
     @Override
     public int find(int[] arr, int target) {
-        int low = 0;
-        int high = arr.length - 1;
+        int min = 0;
+        int max = arr.length - 1;
 
-        if (arr == null || arr.length == 0) {
-            return -1;
-        }
-        if(target == arr[0]){
-            return 0; 
-        }
-
-        while (low <= high) {
-            int mid = low + (high - low) / 2;
+        while (min <= max) {
+            int mid = min + (max - min) / 2;
             if (arr[mid] == target) {
                 return mid;
-            } else if (arr[mid] < target) {
-                low = mid + 1;
+            } else if (arr[mid] > target) {
+                min = mid - 1;
             } else {
-                high = mid - 1;
+                max = mid + 1;
             }
         }
         return -1;
@@ -36,20 +29,20 @@ public class BinarySearch extends Search {
      */
     @Override
     public int recursiveFind(int[] arr, int target) {
-        return recursiveBinary(arr, target, 0, arr.length - 1);
+        return recursiveBinary(arr, target, arr.length - 1, 0);
     }
 
-    public int recursiveBinary(int[] arr, int target, int high, int low) {
-        if(high < low) {
+    public int recursiveBinary(int[] arr, int target, int max, int min) {
+        if(max < min) {
             return -1;
         }
-        int mid = (high + low) / 2;
+        int mid = (max + min) / 2;
         if(arr[mid] == target) {
             return mid;
         }
         if(arr[mid] > target) {
-            return recursiveBinary(arr, target, mid - 1, low);
+            return recursiveBinary(arr, target, mid - 1, min);
         }
-        return recursiveBinary(arr, target, high, low + 1);
+        return recursiveBinary(arr, target, max, min + 1);
     }
 }
