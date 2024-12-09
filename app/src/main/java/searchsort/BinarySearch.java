@@ -9,14 +9,9 @@ public class BinarySearch extends Search {
     public int find(int[] arr, int target) {
         int min = 0;
         int max = arr.length - 1;
-        if (arr == null || arr.length == 0) {
-            return -1;
-        }
-        if(target == arr[0]){
-            return 0; 
-        }
         while (min <= max) {
-            int mid = min + (max - min) / 2;
+            int mid = (max + min) / 2;
+
             if (arr[mid] == target) {
                 return mid;
             } else if (arr[mid] > target) {
@@ -38,18 +33,18 @@ public class BinarySearch extends Search {
     }
 
     public int recursiveBinary(int[] arr, int target, int left, int right) {
-        if (left > right) {
+        if (left < right) {
             return -1; // Target not found
         }
 
-        int mid = left + (right - left) / 2;
+        int mid = (right + left) / 2;
 
         if (arr[mid] == target) {
             return mid; // Target found
         } else if (arr[mid] < target) {
-            return recursiveBinary(arr, target, mid + 1, right); // Right half
+            return recursiveBinary(arr, target, mid - 1, right); // Right half
         } else {
-            return recursiveBinary(arr, target, left, mid - 1); // Left half
+            return recursiveBinary(arr, target, left, mid + 1); // Left half
         }
     }
 }
