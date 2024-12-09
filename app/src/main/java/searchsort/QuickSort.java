@@ -6,9 +6,7 @@ public class QuickSort extends Sort {
      */
     @Override
     public void sort(int[] arr) {
-        if (arr == null || arr.length == 0) {
-            return;
-        }
+        Util.shuffle(arr, null);
         quickSort(arr, 0, arr.length - 1);
     }
 
@@ -17,10 +15,11 @@ public class QuickSort extends Sort {
      */
     private void quickSort(int[] arr, int low, int high) {
         if(high <= low) {
-            int p = partition(arr, low, high);
-            quickSort(arr, low, p - 1);
-            quickSort(arr, p + 1, high);
+            return;
         }
+        int p = partition(arr, low, high);
+        quickSort(arr, low, p - 1);
+        quickSort(arr, p + 1, high);
     }
 
     /*
@@ -28,23 +27,26 @@ public class QuickSort extends Sort {
      * Return the index of the pivot element after partition.
      */
     private int partition(int[] arr, int low, int high) {
-        int i = low - 1;
-        int pivot = arr[high];
-
-        for (int j = low; j < high; j++) {
-            if (arr[j] <= pivot) {
-                i++; 
-
-                int temp = arr[i];
-                arr[i] = arr[j];
-                arr[j] = temp;
+        int i = low;
+        int j = high + 1;
+        while(true) {
+            while(arr[++i] < arr[low]) {
+                if(i == high) {
+                    break;
+                }
             }
+            while(arr[--j] > arr[low]) {
+                if(j == low) {
+                    break;
+                }
+            }
+            if(i >= j) {
+                break;
+            }
+            Util.exch(arr, i, j);
         }
-
-        int temp = arr[i + 1];
-        arr[i + 1] = arr[high];
-        arr[high] = temp;
-        return i + 1;
+        Util.exch(arr, low, j);
+        return j;
     }
 
 }

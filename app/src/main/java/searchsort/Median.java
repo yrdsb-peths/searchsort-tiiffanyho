@@ -12,6 +12,7 @@ public class Median {
     public double findQuick(int[] arr) {
         QuickSort quick = new QuickSort();
         quick.sort(arr);
+        
         if(arr.length == 0) {
             return 0.0;
         }

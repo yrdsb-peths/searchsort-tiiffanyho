@@ -13,12 +13,7 @@ public class SelectionSort {
                     index = j;
                 }
             }
-            
-            if (index != i) {
-                int temp = arr[i];
-                arr[i] = arr[index];
-                arr[index] = temp;
-            }
+            Util.exch(arr, i, index);
         }
     }
 }

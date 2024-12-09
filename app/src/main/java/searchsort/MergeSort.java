@@ -9,6 +9,7 @@ public class MergeSort extends Sort {
         int[] aux = new int[arr.length];
         mergeSort(arr, aux, 0, arr.length - 1);
     }
+
     public void mergeSort(int[] arr, int[] aux, int low, int high) {
         if(high <= low) {
             return;

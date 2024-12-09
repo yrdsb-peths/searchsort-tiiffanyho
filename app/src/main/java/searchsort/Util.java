@@ -1,5 +1,6 @@
 package searchsort;
 
+import java.lang.System.Logger.Level;
 import java.util.Random;
 
 /**
@@ -36,9 +37,9 @@ public class Util {
      * Exchange the elements at indices i and j in the array arr.
      */
     public static void exch(int[] arr, int i, int j) {
-        int temp = arr[i];
+        int hold = arr[i];
         arr[i] = arr[j];
-        arr[j] = temp;
+        arr[j] = hold;
     }
 
     /**
@@ -47,13 +48,11 @@ public class Util {
     public static int[] generateRandomArray(int n, Long seed) {
         // Create a new integer array of size n
         int[] arr = new int[n];
-        Random random = (seed != null) ? new Random(seed) : new Random();
-
         for (int i = 0; i < n; i++) {
-            arr[i] = random.nextInt(n);;
+            arr[i] = i;
         }
         // Shuffle the array using the Shuffle method with the given seed
-        shuffle(arr, seed);
+        arr = shuffle(arr, seed);
         // Return the shuffled array
         return arr;
     }
@@ -62,8 +61,12 @@ public class Util {
      * Check if the array arr is sorted in ascending order.
      */
     public static boolean isSorted(int[] arr) {
+        int largest = 0;    
         for(int i = 0; i < arr.length; i++) {
-            if(arr[i] < arr[i - 1]) {
+            if(largest < arr[i]) {
+                largest = arr[i];
+            }
+            if(largest > arr[i]) {
                 return false;
             }
         }
