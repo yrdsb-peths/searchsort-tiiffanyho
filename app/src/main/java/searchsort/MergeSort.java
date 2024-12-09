@@ -6,46 +6,41 @@ public class MergeSort extends Sort {
      */
     @Override
     public void sort(int[] arr) {
-        int[] aux = new int[arr.length];
-        mergeSort(arr, aux, 0, arr.length - 1);
-    }
-
-    public void mergeSort(int[] arr, int[] aux, int low, int high) {
-        if(high <= low) {
-            return;
+        if (arr.length < 2) {
+            return; 
         }
-        int middle = (low + high) / 2;
-        mergeSort(arr, aux, low, middle);
-        mergeSort(arr, aux, middle + 1, high);
-        merge(arr, aux, low, middle, high);
+        int mid = arr.length / 2;
+        int[] min = new int[mid];
+        int[] max = new int[arr.length - mid];
+        for (int i = 0; i < mid; i++) {
+            min[i] = arr[i];
+        }
+        for (int i = mid; i < arr.length; i++) {
+            max[i - mid] = arr[i];
+        }
+        sort(min);
+        sort(max);
+        merge(arr, min, max);
     }
-
+    
     /*
      * Merge the two sorted arrays left and right into the array arr.
      */
-    private void merge(int[] arr, int[] aux, int left, int mid, int right) {
-        for(int k = left; k <= right; k++) {
-            aux[k] = arr[k];
+    private void merge(int[] arr, int[] left, int[] right) {
+        int i = 0, j = 0, k = 0;
+        while (i < left.length && j < right.length) {
+            if (left[i] <= right[j]) {
+                arr[k++] = left[i++];
+
+            } else {
+                arr[k++] = right[j++];
+            }
         }
-        int i = left;
-        int j = mid + 1;
-        for(int k = left; k <= right; k++) {
-            if(i > mid) {
-                arr[k] = aux[j];
-                j++;
-            }
-            else if (j > right) {
-                arr[k] = aux[i];
-                i++;
-            }
-            else if (aux[j] < aux[i]) {
-                arr[k] = aux[j];
-                j++;
-            }
-            else {
-                arr[k] = aux[i];
-                i++;
-            }
+        while (i < left.length) {
+            arr[k++] = left[i++];
+        }
+        while (j < right.length) {
+            arr[k++] = right[j++];
         }
     }
 }
