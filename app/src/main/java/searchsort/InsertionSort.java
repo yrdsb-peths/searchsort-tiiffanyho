@@ -5,24 +5,17 @@ public class InsertionSort {
      * Sort the array arr using insertion sort algorithm.
      */
     public static void sort(int[] arr) {
-        int low = 0, mid = 0, high = arr.length - 1;
-        while (mid <= high) {
-            if (arr[mid] == 0) {
-                swap(arr, low, mid);
-                low++;
-                mid++;
-            } else if (arr[mid] == 1) {
-                mid++;
-            } else {
-                swap(arr, mid, high);
-                high--;
+        for(int i = 1; i < arr.length; i++)
+        {
+            for(int j = i; j > 0; j--)
+            {
+                if(arr[j - 1] > arr[j])
+                {
+                    int temp = arr[j];
+                    arr[j] = arr[j - 1];
+                    arr[j - 1] = temp;
+                }
             }
         }
-    }
-
-    private void swap(int[] nums, int i, int j) {
-        int temp = nums[i];
-        nums[i] = nums[j];
-        nums[j] = temp;
     }
 }
