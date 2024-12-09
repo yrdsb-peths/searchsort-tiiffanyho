@@ -47,11 +47,13 @@ public class Util {
     public static int[] generateRandomArray(int n, Long seed) {
         // Create a new integer array of size n
         int[] arr = new int[n];
+        Random random = (seed != null) ? new Random(seed) : new Random();
+
         for (int i = 0; i < n; i++) {
-            arr[i] = i;
+            arr[i] = random.nextInt(n);;
         }
         // Shuffle the array using the Shuffle method with the given seed
-        arr = shuffle(arr, seed);
+        shuffle(arr, seed);
         // Return the shuffled array
         return arr;
     }
@@ -60,12 +62,8 @@ public class Util {
      * Check if the array arr is sorted in ascending order.
      */
     public static boolean isSorted(int[] arr) {
-        int largest = 0;
         for(int i = 0; i < arr.length; i++) {
-            if(largest < arr[i]) {
-                largest = arr[i];
-            }
-            if(largest > arr[i]) {
+            if(arr[i] < arr[i - 1]) {
                 return false;
             }
         }
